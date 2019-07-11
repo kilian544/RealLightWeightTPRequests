@@ -1,0 +1,18 @@
+name: RealLightWeightTPRequests
+version: 0.1
+author: Kilian Legters
+main: me.kilianlegters.RealLightWeightTPRequests
+description: Literally just /TP(A/D).
+api-version: 1.14
+
+commands:
+  tp:
+    description: TP command.
+    usage: /<command> <playername>
+    aliases: [tpr]
+  tpa:
+    description: TPA command.
+    usage: /<command>
+  tpd:
+    description: TPD command.
+    usage: /<command>
