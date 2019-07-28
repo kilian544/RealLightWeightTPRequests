@@ -1,5 +1,5 @@
 name: RealLightWeightTPRequests
-version: 0.1
+version: 0.2
 author: Kilian Legters
 main: me.kilianlegters.RealLightWeightTPRequests
 description: Literally just /TP(A/D).
@@ -12,7 +12,7 @@ commands:
     aliases: [tpr]
   tpa:
     description: TPA command.
-    usage: /<command>
+    usage: /<command> (playername)
   tpd:
     description: TPD command.
-    usage: /<command>
+    usage: /<command> (playername)

@@ -1,3 +1,5 @@
+package me.kilianlegters;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RealLightWeightTPRequests extends JavaPlugin{

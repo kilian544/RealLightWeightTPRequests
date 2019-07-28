@@ -1,3 +1,7 @@
+package me.kilianlegters;
+
+import me.kilianlegters.TPRequest;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -22,8 +26,29 @@ public class TP implements CommandExecutor, Listener{
             Player player = (Player) commandSender;
 
             if (strings.length == 1){
+
+                Player player1 = getPlayer(strings[0]);
+
+                if (player1 == null){
+                    player.sendMessage(ChatColor.RED + "Couldn't find anyone online with this name.");
+                    return true;
+                }
+
+                if (player1.equals(player)){
+                    player.sendMessage(ChatColor.RED + "You cant TPRequest with yourself.");
+                    return true;
+                }
+
                 if (s.equalsIgnoreCase("TP") || s.equalsIgnoreCase("TPR")){
-                    return teleportRequest(player, strings[0]);
+                    return teleportRequest(player, player1);
+                }
+
+                if (s.equalsIgnoreCase("TPA")){
+                    return teleportAccept(player, player1);
+                }
+
+                if (s.equalsIgnoreCase("TPD")){
+                    return teleportDeny(player, player1);
                 }
             }
 
@@ -55,17 +80,10 @@ public class TP implements CommandExecutor, Listener{
         requestMap.clear();
     }
 
-    private boolean teleportRequest(Player player, String s){
-        Player player1 = getPlayer(s);
-
-        if (player1 == null){
-            player.sendMessage(ChatColor.RED + "Couldn't find anyone online with this name.");
-            return true;
-        }
-
+    private boolean teleportRequest(Player player, Player player1){
         if (requestMap.containsKey(player)){
             if (!requestMap.get(player).expired()){
-                player.sendMessage(ChatColor.RED + "You already sent request in past 30 seconds.");
+                player.sendMessage(ChatColor.RED + "You already sent request in the past 15 seconds.");
                 return true;
             }
         }
@@ -81,6 +99,20 @@ public class TP implements CommandExecutor, Listener{
             }
         }
         return null;
+    }
+
+    private boolean teleportAccept(Player player, Player player1){
+        if (!requestMap.get(player1).accept(player)){
+            player.sendMessage(ChatColor.GREEN + WordUtils.capitalize(player1.getDisplayName()) + " has not requested to teleport to you.");
+        }
+        return true;
+    }
+
+    private boolean teleportDeny(Player player, Player player1){
+        if (!requestMap.get(player1).deny(player)){
+            player.sendMessage(ChatColor.GREEN + WordUtils.capitalize(player1.getDisplayName()) + " has not requested to teleport to you.");
+        }
+        return true;
     }
 
     private boolean teleportAccept(Player player){

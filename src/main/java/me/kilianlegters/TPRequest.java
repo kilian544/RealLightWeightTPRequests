@@ -1,3 +1,5 @@
+package me.kilianlegters;
+
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -16,7 +18,7 @@ public class TPRequest {
         this.requested = requested;
         requested.sendMessage(ChatColor.GREEN + WordUtils.capitalize(requestee.getDisplayName()) + " requested to teleport to you.");
         requested.playSound(requested.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1, .1f);
-        this.expiration = System.currentTimeMillis() + 1000 * 30;
+        this.expiration = System.currentTimeMillis() + 1000 * 15;
     }
 
     public boolean accept(Player player){
@@ -31,7 +33,7 @@ public class TPRequest {
         }
 
         if (this.expired()){
-            requested.sendMessage(ChatColor.RED + "The TPRequest has expired.");
+            requested.sendMessage(ChatColor.RED + WordUtils.capitalize(requestee.getDisplayName()) +  "'s TPRequest has expired.");
             return true;
         }
 
@@ -55,7 +57,7 @@ public class TPRequest {
         }
 
         if (this.expired()){
-            requested.sendMessage(ChatColor.RED + "The TPRequest has expired.");
+            requested.sendMessage(ChatColor.RED + WordUtils.capitalize(requestee.getDisplayName()) +  "'s TPRequest has expired.");
             return true;
         }
 
